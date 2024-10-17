@@ -48,6 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         growing = !growing;
     }, 4000);
+
+
+    //audio settings: 
+
+    const audio = document.getElementById('myAudio');
+    audio.volume = 0.2; // Sets the volume to 20%
+    audio.autoplay = true; // Enables autoplay
+    audio.load(); // Reloads the audio to apply the autoplay setting
 })
     
     
