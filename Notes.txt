@@ -1,0 +1,7 @@
+1.HTML Structure 
+    1.1 background picture with text over layed
+    1.2 a section where the quote goes
+2. CSS style- as we got
+3. make an http request to quotes API 
+    4.1 quote goes away after 30 seconds 
+    4.2 if quote is clicked it goes away 

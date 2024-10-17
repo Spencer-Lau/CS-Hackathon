@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Focus",
+  "version": "1.0",
+  "description": "This extention is intended to inspire you throughout the day.",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "hello_extensions.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["jquery.min.js", "./main.js"],
+      "css": ["index.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": ["activeTab"]
+}
