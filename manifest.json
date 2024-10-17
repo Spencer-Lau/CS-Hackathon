@@ -5,7 +5,7 @@
   "description": "This extention is intended to inspire you throughout the day.",
   "action": {
     "default_popup": "index.html",
-    "default_icon": "hello_extensions.png"
+    "default_icon": "sun.png"
   },
   "content_scripts": [
     {

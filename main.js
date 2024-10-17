@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((data) => {
         //console.log(data.content)
         let quote = `"${data.content}"`;
-        let author = data.author;
+        let author = `-${data.author}`;
        //console.log(quote, author)
        
        //set div inner text
@@ -33,8 +33,21 @@ document.addEventListener('DOMContentLoaded', () => {
        
     })
 
+    const cycleDiv = document.getElementById('cycleDiv');
+    let growing = true;
 
-
+    setInterval(() => {
+        if (growing) {
+            cycleDiv.style.width = '100px';
+            cycleDiv.style.height = '100px';
+            cycleDiv.innerText = 'Inhale'
+        } else {
+            cycleDiv.style.width = '50px';
+            cycleDiv.style.height = '50px'
+            cycleDiv.innerText = 'Exhale'
+        }
+        growing = !growing;
+    }, 4000);
 })
     
     
