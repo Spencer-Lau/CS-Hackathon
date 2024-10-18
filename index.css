@@ -1,9 +1,20 @@
 body {
   position: relative;
-  width: 500px;
-  height: 300px;
-  background-image: url('background.jpg');
-  background-size: cover; /* Makes the image cover the entire element */
+  width: 100%;
+  min-height: 300px;
+  max-height: 500px;
+  background: url('background.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+#loadingSpinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  text-shadow: 1px 1px 2px black;
 }
 
 #quote {
@@ -11,23 +22,23 @@ body {
   height: 200px;
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centers children horizontally */
+}
+
+.author,
+.quote {
+  width: 100%; /* Make width consistent */
+  color: white;
+  text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black,
+    -1px 1px 2px black;
 }
 
 .author {
-  width: 500px;
-  color: white;
   font-size: 20px;
-  text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black,
-    -1px 1px 2px black;
-  align-self: center;
 }
 
 .quote {
-  width: 500px;
-  color: white;
   font-size: 25px;
-  text-shadow: 1px 1px 2.5px black, -1px -1px 2.5px black, 1px -1px 2.5px black,
-    -1px 1px 2.5px black;
 }
 
 .cycleDiv {
@@ -35,21 +46,21 @@ body {
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 50px;
-  height: 50px;
-  margin: auto;
-  background-color: rgba(255, 255, 255, 0.5);
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.3);
   border: 2px solid white;
   border-radius: 50%;
   color: white;
   font-size: 15px;
   letter-spacing: 0.11em;
-  text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black,
-    -1px 1px 2px black;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-shadow: 1px 1px 2.5px black, -1px -1px 2.5px black, 1px -1px 2.5px black,
+    -1px 1px 2.5px black;
   box-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black,
     -1px 1px 2px black;
   transition: all 4s ease-in-out;
+  margin: 0;
 }

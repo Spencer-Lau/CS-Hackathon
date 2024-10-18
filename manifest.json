@@ -3,6 +3,7 @@
   "name": "Focus",
   "version": "1.0",
   "description": "This extention is intended to inspire you throughout the day.",
+  "author": "Spencer Lau & Ragad Mohammed",
   "action": {
     "default_popup": "index.html",
     "default_icon": "sun.png"
@@ -17,8 +18,3 @@
   ],
   "permissions": ["storage", "activeTab", "scripting", "tabs", "webNavigation"]
 }
-
-
-  // "background": {
-  //   "service_worker": "background.js"
-  // }
