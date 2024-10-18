@@ -3,7 +3,6 @@
     // if quote is clicked it goes away    
 
 //make a fetch reques to this API to generate random quote:
-    //
 document.addEventListener('DOMContentLoaded', () => {
     //create a div for the quote
     const divBoard = document.getElementById('quote')

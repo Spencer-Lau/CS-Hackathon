@@ -15,5 +15,10 @@
       "run_at": "document_end"
     }
   ],
-  "permissions": ["activeTab"]
+  "permissions": ["storage", "activeTab", "scripting", "tabs", "webNavigation"]
 }
+
+
+  // "background": {
+  //   "service_worker": "background.js"
+  // }
