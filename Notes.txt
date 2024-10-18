@@ -1,11 +1,3 @@
-2. CSS style - ongoing as needed
-    4.1 quote goes away after 30 seconds?
-    4.2 if quote is clicked it goes away 
-
-
-    Stretch feature: 
-Add music
-Box breathing with timer 
-Web page dimmer based on the time of day 
-    For eyes comfort 
+Stretch features: 
+Web page dimmer based on the time of day for eyes comfort 
     As the day goes by it gets dimmer
