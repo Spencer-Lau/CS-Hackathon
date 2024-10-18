@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Focus",
   "version": "1.0",
-  "description": "This extention is intended to inspire you throughout the day.",
+  "description": "This extention is intended to inspire you throughout the day. A new quote can be found everytime the extension is reopened or by clicking the current quote.",
   "author": "Spencer Lau & Ragad Mohammed",
   "action": {
     "default_popup": "index.html",
