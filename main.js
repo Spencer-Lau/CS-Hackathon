@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const audio = document.getElementById('myAudio');
   const toggleButton = document.getElementById('toggleAutoFetch');
   const muteButton = document.getElementById('toggleMute');
+  const autoQuoteTooltip = document.getElementById('autoQuoteTooltip');
   const muteTooltip = document.getElementById('muteTooltip');
 
   audio.volume = 0.2; // Set volume
@@ -25,12 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
   let autoFetchEnabled = false;
   let autoFetchInterval;
 
+  // Toggle auto-fetch on button click
   toggleButton.addEventListener('click', toggleAutoFetch);
+  toggleButton.addEventListener('mouseenter', showAutoQuoteTooltip);
+  toggleButton.addEventListener('mouseleave', hideAutoQuoteTooltip);
 
   function toggleAutoFetch() {
     autoFetchEnabled = !autoFetchEnabled; // Toggle the flag
-    toggleButton.innerText = autoFetchEnabled ? '' : ''; // No text in the button
-    updateTooltip(); // Update tooltip text
 
     if (autoFetchEnabled) {
       // Start auto-fetching quotes every 30 seconds
@@ -41,34 +43,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function updateTooltip() {
-    const tooltip = document.getElementById('tooltip');
-    tooltip.innerText = autoFetchEnabled ? '30" Quotes: On' : '30" Quotes: Off';
+  function showAutoQuoteTooltip() {
+    autoQuoteTooltip.innerText = autoFetchEnabled
+      ? '30" Quotes: On'
+      : '30" Quotes: Off'; // Set tooltip text based on state
+    autoQuoteTooltip.style.display = 'block'; // Show the tooltip
   }
 
-  let isMuted = false; // Track mute state
+  function hideAutoQuoteTooltip() {
+    autoQuoteTooltip.style.display = 'none'; // Hide tooltip
+  }
 
+  // Mute functionality
+  let isMuted = false; // Track mute state
   muteButton.addEventListener('click', toggleMute);
-  muteButton.addEventListener('mouseenter', showTooltip);
-  muteButton.addEventListener('mouseleave', hideTooltip);
+  muteButton.addEventListener('mouseenter', showMuteTooltip);
+  muteButton.addEventListener('mouseleave', hideMuteTooltip);
 
   function toggleMute() {
     isMuted = !isMuted; // Toggle mute state
     audio.muted = isMuted; // Mute or unmute audio
-    muteButton.setAttribute('title', isMuted ? 'Mute: On' : 'Mute: Off'); // Update tooltip
+    muteButton.setAttribute('title', isMuted ? 'Mute: On' : 'Mute: Off'); // Update button title
   }
 
-  function showTooltip() {
-    muteTooltip.innerText = isMuted ? 'Muted' : 'Unmuted'; // Set tooltip text based on mute state
+  function showMuteTooltip() {
+    muteTooltip.innerText = isMuted ? 'Mute: On' : 'Mute: Off'; // Set tooltip text based on mute state
     muteTooltip.style.display = 'block'; // Show tooltip
   }
 
-  function hideTooltip() {
+  function hideMuteTooltip() {
     muteTooltip.style.display = 'none'; // Hide tooltip
   }
 
-  // Initialize tooltip state
-  muteButton.setAttribute('title', 'Mute: Off');
   // Function to create an element with a specific class
   function createElement(tag, className) {
     const element = document.createElement(tag);

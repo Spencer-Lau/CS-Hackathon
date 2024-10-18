@@ -66,18 +66,16 @@ body {
 .autoQuoteTooltip {
   position: fixed;
   top: 50px; /* Position below the button */
-  right: 10px; /* Align with the button */
-  background-color: rgba(0, 0, 0, 0.7); /* Dark background */
-  color: white; /* White text */
-  padding: 5px 10px; /* Padding */
+  right: 5px; /* Align with the button */
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid white;
   border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Padding */
   display: none; /* Initially hidden */
-  font-size: 12px; /* Font size */
+  opacity: 0.8; /* Slightly transparent */
+  transition: opacity 0.3s;
   z-index: 1000; /* Ensure it appears above other elements */
-}
-
-#toggleAutoFetch:hover + .tooltip {
-  display: block; /* Show tooltip on hover */
+  font-weight: bold; /* Make tooltip text thicker */
 }
 
 #toggleMute {
@@ -87,10 +85,8 @@ body {
   opacity: 0.5; /* Set opacity */
   background-color: rgba(255, 255, 255, 0.3); /* Set background color */
   border: 2px solid white; /* Set border */
-  box-shadow: 1px 1px 2px black, 
-              -1px -1px 2px black, 
-              1px -1px 2px black, 
-              -1px 1px 2px black; /* Set box shadow */
+  box-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black,
+    -1px 1px 2px black; /* Set box shadow */
   width: 15px; /* Set width */
   height: 15px; /* Set height */
   border-radius: 50%; /* Make it a circle */
@@ -103,15 +99,18 @@ body {
 
 .muteTooltip {
   position: fixed;
-  top: 65px; /* Position it below the mute button */
+  top: 50px; /* Position it below the mute button */
   right: 5px; /* Align with the button */
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 1);
   border: 1px solid white;
   border-radius: 5px;
-  padding: 5px;
+  padding: 5px 10px; /* Padding */
   display: none; /* Initially hidden */
   opacity: 0.8; /* Slightly transparent */
+  font-size: 12px; /* Font size */
+  font-weight: bold; /* Make tooltip text thicker */
   transition: opacity 0.3s;
+  z-index: 1000; /* Ensure it appears above other elements */
 }
 
 .cycleDiv {

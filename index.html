@@ -8,23 +8,21 @@
   </head>
   <body>
     <div id="popupBody">
-      <audio id="myAudio">
+      <audio id="myAudio" preload="auto" loop>
         <source src="calm-soul-meditation-247330.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
       <div id="loadingSpinner" style="display: none"></div>
       <div id="quote"></div>
       <div class="cycleDiv" id="cycleDiv"></div>
-      <button id="toggleAutoFetch"></button>
-      <div id="autoQuoteTooltip" class="autoQuoteTooltip"></div>
       <button
-        id="toggleMute"
-        title="Mute: Off"
-        aria-label="Mute/Unmute Audio"
+        id="toggleAutoFetch"
+        aria-label="Toggle Auto-Fetch Quotes"
       ></button>
+      <div id="autoQuoteTooltip" class="autoQuoteTooltip"></div>
       <button id="toggleMute" aria-label="Mute/Unmute Audio"></button>
       <div id="muteTooltip" class="muteTooltip"></div>
-      <script src="main.js"></script>
+      <script src="main.js" type="module"></script>
     </div>
   </body>
 </html>
