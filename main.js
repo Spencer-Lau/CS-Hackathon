@@ -6,9 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadingSpinner = document.getElementById('loadingSpinner');
   const cycleDiv = document.getElementById('cycleDiv');
   const audio = document.getElementById('myAudio');
+  const toggleButton = document.getElementById('toggleAutoFetch');
 
   audio.volume = 0.2; // Set volume
   audio.autoplay = true; // Enable autoplay
+  audio.loop = true; // Enable looping
   audio.load(); // Reload audio
 
   // Initialize
@@ -16,6 +18,33 @@ document.addEventListener('DOMContentLoaded', () => {
   divBoard.appendChild(authorDiv);
   fetchQuote();
   animateCycle();
+
+  // Auto-fetch variables
+  let autoFetchEnabled = false;
+  let autoFetchInterval;
+
+  toggleButton.addEventListener('click', toggleAutoFetch);
+
+  function toggleAutoFetch() {
+    autoFetchEnabled = !autoFetchEnabled; // Toggle the flag
+    toggleButton.innerText = autoFetchEnabled ? '' : ''; // No text in the button
+    updateTooltip(); // Update tooltip text
+
+    if (autoFetchEnabled) {
+      // Start auto-fetching quotes every 30 seconds
+      autoFetchInterval = setInterval(fetchQuote, 30000);
+    } else {
+      // Stop auto-fetching
+      clearInterval(autoFetchInterval);
+    }
+  }
+
+  function updateTooltip() {
+    const tooltip = document.getElementById('tooltip');
+    tooltip.innerText = autoFetchEnabled
+      ? '30" Quotes: On'
+      : '30\" Quotes: Off';
+  }
 
   // Function to create an element with a specific class
   function createElement(tag, className) {
@@ -31,14 +60,14 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const response = await fetch('http://quotable.io/random');
       if (!response.ok) throw new Error('Network response was not ok');
-  
+
       const { content, author } = await response.json();
       console.log('Quote fetched:', content, 'by', author); // Log successful fetch
       displayQuote(content, author);
     } catch (error) {
       console.error('Error fetching quote:', error); // Log error
-      quoteDiv.innerText = "Slight delay, please click to load a new quote."; // Show fallback message
-      authorDiv.innerText = ""; // Clear author if there’s an error
+      quoteDiv.innerText = 'Slight delay. Please click to load a new quote.'; // Show fallback message
+      authorDiv.innerText = ''; // Clear author if there’s an error
     } finally {
       loadingSpinner.style.display = 'none'; // Hide spinner
     }

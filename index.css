@@ -40,6 +40,46 @@ body {
   font-size: 25px;
 }
 
+#toggleAutoFetch {
+  position: fixed; /* Position it fixed to the viewport */
+  top: 5px; /* Distance from the top */
+  right: 5px; /* Distance from the right */
+  opacity: 0.5; /* Set opacity */
+  background-color: rgba(255, 255, 255, 0.3); /* Set background color */
+  border: 2px solid white; /* Set border */
+  box-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black,
+    -1px 1px 2px black; /* Set box shadow */
+  width: 15px; /* Set width */
+  height: 15px; /* Set height */
+  border-radius: 50%; /* Make it a circle */
+  cursor: pointer; /* Change cursor to pointer */
+  display: flex; /* Center the content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  transition: opacity 0.3s; /* Smooth opacity transition */
+}
+
+#toggleAutoFetch:hover {
+  opacity: 0.7; /* Slightly increase opacity on hover */
+}
+
+.tooltip {
+  position: fixed;
+  top: 50px; /* Position below the button */
+  right: 10px; /* Align with the button */
+  background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+  color: white; /* White text */
+  padding: 5px 10px; /* Padding */
+  border-radius: 5px; /* Rounded corners */
+  display: none; /* Initially hidden */
+  font-size: 12px; /* Font size */
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+#toggleAutoFetch:hover + .tooltip {
+  display: block; /* Show tooltip on hover */
+}
+
 .cycleDiv {
   position: absolute;
   bottom: 10px;
