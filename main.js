@@ -10,12 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const muteButton = document.getElementById('toggleMute');
   const autoQuoteTooltip = document.getElementById('autoQuoteTooltip');
   const muteTooltip = document.getElementById('muteTooltip');
+  const volumeSlider = document.getElementById('volumeSlider');
 
   audio.volume = 0.2; // Set volume
   audio.autoplay = true; // Enable autoplay
   audio.loop = true; // Enable looping
   audio.load(); // Reload audio
-
+  volumeSlider.addEventListener('input', () => {
+    audio.volume = volumeSlider.value; // Set audio volume to slider value
+  });
+  
   // Initialize
   divBoard.appendChild(quoteDiv);
   divBoard.appendChild(authorDiv);
