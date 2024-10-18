@@ -1,3 +1,4 @@
+/* General body styling */
 body {
   position: relative;
   width: 100%;
@@ -6,6 +7,7 @@ body {
   background-size: cover;
 }
 
+/* Loading spinner styling */
 #loadingSpinner {
   position: absolute;
   top: 50%;
@@ -16,6 +18,7 @@ body {
   text-shadow: 1px 1px 2px black;
 }
 
+/* Quote container */
 #quote {
   width: 500px;
   height: 300px;
@@ -24,6 +27,7 @@ body {
   align-items: center; /* Centers children horizontally */
 }
 
+/* Quote and author text styling */
 .author,
 .quote {
   width: 100%; /* Make width consistent */
@@ -113,6 +117,7 @@ body {
   z-index: 1000; /* Ensure it appears above other elements */
 }
 
+/* Cycle div styles */
 .cycleDiv {
   position: absolute;
   bottom: 10px;
@@ -134,5 +139,5 @@ body {
   box-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black,
     -1px 1px 2px black;
   transition: all 4s ease-in-out;
-  margin: 0;
+  /* margin: 0; */
 }
