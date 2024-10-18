@@ -63,7 +63,7 @@ body {
   opacity: 0.7; /* Slightly increase opacity on hover */
 }
 
-.tooltip {
+.autoQuoteTooltip {
   position: fixed;
   top: 50px; /* Position below the button */
   right: 10px; /* Align with the button */
@@ -78,6 +78,40 @@ body {
 
 #toggleAutoFetch:hover + .tooltip {
   display: block; /* Show tooltip on hover */
+}
+
+#toggleMute {
+  position: fixed; /* Position it fixed to the viewport */
+  top: 26px; /* 10px below the toggleAutoFetch button */
+  right: 5px; /* Distance from the right */
+  opacity: 0.5; /* Set opacity */
+  background-color: rgba(255, 255, 255, 0.3); /* Set background color */
+  border: 2px solid white; /* Set border */
+  box-shadow: 1px 1px 2px black, 
+              -1px -1px 2px black, 
+              1px -1px 2px black, 
+              -1px 1px 2px black; /* Set box shadow */
+  width: 15px; /* Set width */
+  height: 15px; /* Set height */
+  border-radius: 50%; /* Make it a circle */
+  cursor: pointer; /* Change cursor to pointer */
+  display: flex; /* Center the content */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  transition: opacity 0.3s; /* Smooth opacity transition */
+}
+
+.muteTooltip {
+  position: fixed;
+  top: 65px; /* Position it below the mute button */
+  right: 5px; /* Align with the button */
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px;
+  display: none; /* Initially hidden */
+  opacity: 0.8; /* Slightly transparent */
+  transition: opacity 0.3s;
 }
 
 .cycleDiv {
