@@ -44,7 +44,8 @@ body {
   font-size: 25px;
 }
 
-/* Button styles for auto-fetch toggle */
+/* Button styles */
+#toggleQuotes,
 #toggleAutoFetch,
 #toggleMute {
   position: fixed;
@@ -64,24 +65,30 @@ body {
   transition: opacity 0.3s;
 }
 
+#toggleQuotes {
+  top: 5px;
+}
+
 #toggleAutoFetch {
   top: 26px;
 }
 
 #toggleMute {
-  top: 47px; /* 10px below toggleAutoFetch */
+  top: 47px;
 }
 
+#toggleQuotes:hover,
 #toggleAutoFetch:hover,
 #toggleMute:hover {
   opacity: 0.7;
 }
 
 /* Tooltip styles */
+.quoteTooltip,
 .autoQuoteTooltip,
 .muteTooltip {
   position: fixed;
-  right: 20px;
+  right: 26px;
   background-color: rgba(255, 255, 255, 1);
   border: 1px solid white;
   border-radius: 5px;
@@ -91,53 +98,18 @@ body {
   font-weight: bold;
   transition: opacity 0.3s;
   z-index: 1000;
-}
-
-/* Button styles for quote toggle */
-#toggleQuotes {
-  position: fixed;
-  right: 5px;
-  top: 5px; /* Position below toggleMute */
-  opacity: 0.5;
-  background-color: rgba(255, 255, 255, 0.3);
-  border: 2px solid white;
-  box-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black,
-    -1px 1px 2px black;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: opacity 0.3s;
-}
-
-#toggleQuotes:hover {
-  opacity: 0.7;
 }
 
 .quoteTooltip {
-  position: fixed;
-  right: 20px;
-  top: 55px; /* Position below toggleQuotes */
-  background-color: rgba(255, 255, 255, 1);
-  border: 1px solid white;
-  border-radius: 5px;
-  padding: 5px 10px;
-  display: none; /* Initially hidden */
-  opacity: 0.8;
-  font-weight: bold;
-  transition: opacity 0.3s;
-  z-index: 1000;
+  top: 0px; /* Position below toggleQuotes */
 }
 
 .autoQuoteTooltip {
-  top: 26px; /* Position below toggleAutoFetch */
+  top: 21px; /* Position below toggleAutoFetch */
 }
 
 .muteTooltip {
-  top: 47px; /* Position below toggleMute */
+  top: 42px; /* Position below toggleMute */
 }
 
 /* Volume slider styling */
