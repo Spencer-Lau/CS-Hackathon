@@ -1,110 +1,99 @@
-//make a fetch reques to this API to generate random quote:
 document.addEventListener('DOMContentLoaded', () => {
   const divBoard = document.getElementById('quote');
   const loadingSpinner = document.getElementById('loadingSpinner');
-  const quoteDiv = createElement('span', 'quote');
-  const authorDiv = createElement('span', 'author');
   const cycleDiv = document.getElementById('cycleDiv');
   const audio = document.getElementById('myAudio');
   const toggleButton = document.getElementById('toggleAutoFetch');
-  const autoQuoteTooltip = document.getElementById('autoQuoteTooltip');
   const muteButton = document.getElementById('toggleMute');
   const volumeSlider = document.getElementById('volumeSlider');
-  const muteTooltip = document.getElementById('muteTooltip');
 
-  audio.volume = 0.2; // Set volume
-  audio.autoplay = true; // Enable autoplay
-  audio.loop = true; // Enable looping
-  audio.load(); // Reload audio
-  volumeSlider.addEventListener('input', () => {
-    audio.volume = volumeSlider.value; // Set audio volume to slider value
-  });
+  const quoteDiv = createElement('span', 'quote');
+  const authorDiv = createElement('span', 'author');
+  const quoteTooltip = createTooltip('quoteTooltip');
+  const autoQuoteTooltip = createTooltip('autoQuoteTooltip');
+  const muteTooltip = createTooltip('muteTooltip');
+
+  // Set up audio
+  setupAudio(audio, volumeSlider);
 
   // Initialize
-  divBoard.appendChild(quoteDiv);
-  divBoard.appendChild(authorDiv);
+  divBoard.append(quoteDiv, authorDiv);
   fetchQuote();
   animateCycle();
 
   // Fetch a random quote
   async function fetchQuote() {
-    loadingSpinner.style.display = 'block'; // Show spinner
-    console.log('Fetching quote...'); // Log fetching start
+    toggleLoadingSpinner(true);
     try {
       const response = await fetch('http://quotable.io/random');
       if (!response.ok) throw new Error('Network response was not ok');
-
       const { content, author } = await response.json();
-      console.log('Quote fetched:', content, 'by', author); // Log successful fetch
       displayQuote(content, author);
     } catch (error) {
-      console.error('Error fetching quote:', error); // Log error
-      quoteDiv.innerText = 'Slight delay. Please click to load a new quote.'; // Show fallback message
-      authorDiv.innerText = ''; // Clear author if there’s an error
+      handleFetchError(error);
     } finally {
-      loadingSpinner.style.display = 'none'; // Hide spinner
+      toggleLoadingSpinner(false);
     }
   }
 
-  // Display the quote
+  // Utility Functions
+  function toggleLoadingSpinner(show) {
+    loadingSpinner.style.display = show ? 'block' : 'none';
+  }
+
+  function handleFetchError(error) {
+    console.error('Error fetching quote:', error);
+    quoteDiv.innerText = 'Slight delay. Please click to load a new quote.';
+    authorDiv.innerText = '';
+  }
+
   function displayQuote(content, author) {
     quoteDiv.innerText = `"${content}"`;
     authorDiv.innerText = `-${author}`;
-    showQuote();
+    showElements(quoteDiv, authorDiv);
   }
 
-  // Show the quote with a transition
-  function showQuote() {
-    quoteDiv.classList.add('show');
-    authorDiv.classList.add('show');
+  function showElements(...elements) {
+    elements.forEach(el => el.classList.add('show'));
   }
 
-  // Hide the quote and fetch a new one
-  function hideQuote() {
-    quoteDiv.classList.remove('show');
-    authorDiv.classList.remove('show');
-    fetchQuote();
+  // Tooltip Function
+  function createTooltip(id) {
+    const tooltip = document.getElementById(id);
+    return {
+      show: (text) => {
+        tooltip.style.display = 'block';
+        tooltip.innerText = text;
+      },
+      hide: () => {
+        tooltip.style.display = 'none';
+      }
+    };
   }
 
-  // Click event to hide and fetch a new quote
-  quoteDiv.addEventListener('click', () => {
-    if (quoteDiv.innerText) hideQuote();
-  });
+  // Mute functionality
+  let isMuted = false; // Track mute state
 
-  // Toggle quotes on button click
-  let quotesEnabled = true; // Track quote state
-  const quoteToggleButton = document.getElementById('toggleQuotes');
-  const quoteTooltip = document.getElementById('quoteTooltip');
+  muteButton.addEventListener('click', toggleMute);
+  muteButton.addEventListener('mouseenter', () => muteTooltip.show(isMuted ? 'Mute: On' : 'Mute: Off'));
+  muteButton.addEventListener('mouseleave', muteTooltip.hide);
 
-  quoteToggleButton.addEventListener('click', toggleQuotes);
-  quoteToggleButton.addEventListener('mouseenter', showQuoteTooltip);
-  quoteToggleButton.addEventListener('mouseleave', hideQuoteTooltip);
-
-  function toggleQuotes() {
-    quotesEnabled = !quotesEnabled; // Toggle quotes state
-    quoteTooltip.innerText = quotesEnabled ? 'Quotes: On' : 'Quotes: Off'; // Update tooltip text
-
-    if (quotesEnabled) {
-      fetchQuote(); // Fetch a new quote if enabled
-    } else {
-      quoteDiv.innerText = ''; // Clear the quote display if disabled
-      authorDiv.innerText = ''; // Clear the author display if disabled
-    }
+  function toggleMute() {
+    isMuted = !isMuted; // Toggle mute state
+    audio.muted = isMuted; // Mute or unmute audio
+    muteTooltip.show(isMuted ? 'Mute: On' : 'Mute: Off'); // Update tooltip text
   }
 
-  function showQuoteTooltip() {
-    quoteTooltip.style.display = 'block'; // Show the tooltip
-    quoteTooltip.innerText = quotesEnabled ? 'Quotes: On' : 'Quotes: Off'; // Set tooltip text based on state
-  }
+  // Setup Audio
+  function setupAudio(audio, volumeSlider) {
+    audio.volume = 0.2; // Set volume
+    audio.autoplay = true; // Enable autoplay
+    audio.loop = true; // Enable looping
+    audio.load(); // Reload audio
 
-  function hideQuoteTooltip() {
-    quoteTooltip.style.display = 'none'; // Hide tooltip
-  }
-
-  // Make sure to fetch quotes automatically if quotesEnabled is true
-  if (quotesEnabled) {
-    fetchQuote(); // Initial fetch
-    toggleButton.addEventListener('click', toggleAutoFetch);
+    volumeSlider.addEventListener('input', () => {
+      audio.volume = volumeSlider.value; // Set audio volume to slider value
+    });
   }
 
   // Toggle auto-fetch on button click
@@ -112,55 +101,38 @@ document.addEventListener('DOMContentLoaded', () => {
   let autoFetchInterval;
 
   toggleButton.addEventListener('click', toggleAutoFetch);
-  toggleButton.addEventListener('mouseenter', showAutoQuoteTooltip);
-  toggleButton.addEventListener('mouseleave', hideAutoQuoteTooltip);
+  toggleButton.addEventListener('mouseenter', () => autoQuoteTooltip.show(autoFetchEnabled ? '30" Quotes: On' : '30" Quotes: Off'));
+  toggleButton.addEventListener('mouseleave', autoQuoteTooltip.hide);
 
   function toggleAutoFetch() {
     autoFetchEnabled = !autoFetchEnabled; // Toggle the flag
-    autoQuoteTooltip.innerText = autoFetchEnabled
-      ? '30" Quotes: On'
-      : '30" Quotes: Off'; // Update tooltip text
+    autoQuoteTooltip.show(autoFetchEnabled ? '30" Quotes: On' : '30" Quotes: Off'); // Update tooltip text
 
     if (autoFetchEnabled) {
-      // Start auto-fetching quotes every 30 seconds
-      autoFetchInterval = setInterval(fetchQuote, 30000);
+      autoFetchInterval = setInterval(fetchQuote, 30000); // Start auto-fetching quotes every 30 seconds
     } else {
-      // Stop auto-fetching
-      clearInterval(autoFetchInterval);
+      clearInterval(autoFetchInterval); // Stop auto-fetching
     }
   }
 
-  function showAutoQuoteTooltip() {
-    autoQuoteTooltip.style.display = 'block'; // Show the tooltip
-    autoQuoteTooltip.innerText = autoFetchEnabled
-      ? '30" Quotes: On'
-      : '30" Quotes: Off'; // Set tooltip text based on state
-  }
+  // Toggle quotes on button click
+  let quotesEnabled = true; // Track quote state
+  const quoteToggleButton = document.getElementById('toggleQuotes');
 
-  function hideAutoQuoteTooltip() {
-    autoQuoteTooltip.style.display = 'none'; // Hide tooltip
-  }
+  quoteToggleButton.addEventListener('click', toggleQuotes);
+  quoteToggleButton.addEventListener('mouseenter', () => quoteTooltip.show(quotesEnabled ? 'Quotes: On' : 'Quotes: Off'));
+  quoteToggleButton.addEventListener('mouseleave', quoteTooltip.hide);
 
-  // Mute functionality
-  let isMuted = false; // Track mute state
+  function toggleQuotes() {
+    quotesEnabled = !quotesEnabled; // Toggle quotes state
+    quoteTooltip.show(quotesEnabled ? 'Quotes: On' : 'Quotes: Off'); // Update tooltip text
 
-  muteButton.addEventListener('click', toggleMute);
-  muteButton.addEventListener('mouseenter', showMuteTooltip);
-  muteButton.addEventListener('mouseleave', hideMuteTooltip);
-
-  function toggleMute() {
-    isMuted = !isMuted; // Toggle mute state
-    audio.muted = isMuted; // Mute or unmute audio
-    muteTooltip.innerText = isMuted ? 'Mute: On' : 'Mute: Off'; // Update tooltip text
-  }
-
-  function showMuteTooltip() {
-    muteTooltip.style.display = 'block'; // Show tooltip
-    muteTooltip.innerText = isMuted ? 'Mute: On' : 'Mute: Off'; // Set tooltip text based on mute state
-  }
-
-  function hideMuteTooltip() {
-    muteTooltip.style.display = 'none'; // Hide tooltip
+    if (quotesEnabled) {
+      fetchQuote(); // Fetch a new quote if enabled
+    } else {
+      quoteDiv.innerText = ''; // Clear the quote display if disabled
+      authorDiv.innerText = ''; // Clear the author display if disabled
+    }
   }
 
   // Function to create an element with a specific class
