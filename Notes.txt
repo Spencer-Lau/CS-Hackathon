@@ -1,3 +1,5 @@
-Stretch features: 
+Stretch features:
+Clicking the background toggles between black and the background
+Clicking cycleBreathing alternates between box and simply alternating inhale/exhale
 Web page dimmer based on the time of day for eyes comfort 
     As the day goes by it gets dimmer
